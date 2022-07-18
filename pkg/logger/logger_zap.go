@@ -9,6 +9,7 @@ import (
 type ZapLogger struct {
 	zaplogger     *zap.Logger
 	sugaredLogger *zap.SugaredLogger
+	NopLogger
 }
 
 func NewZapLogger() (Logger, error) {
@@ -44,9 +45,9 @@ func (s ZapLogger) DebugF(msg string, params ...interface{}) {
 	s.zaplogger.Debug(fmt.Sprintf(msg, params...))
 }
 
-func (s ZapLogger) DebugS(msg string, keysAndValues ...interface{}) {
-	s.sugaredLogger.Debugw(msg, keysAndValues...)
-}
+// func (s ZapLogger) DebugS(msg string, keysAndValues ...interface{}) {
+// 	s.sugaredLogger.Debugw(msg, keysAndValues...)
+// }
 
 func (s ZapLogger) Error(msg string) {
 	s.zaplogger.Error(msg)
