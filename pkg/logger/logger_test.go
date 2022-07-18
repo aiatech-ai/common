@@ -8,7 +8,7 @@ import (
 )
 
 func TestRunDefaultLogger(t *testing.T) {
-	log, err := logger.NewZapLogger()
+	log, err := logger.NewZapLoggerLevel(logger.DEVELOP, logger.LEVEL_DEBUG)
 	if err != nil {
 		fmt.Printf("NewZapLogger error: %s\n", err.Error())
 		return
@@ -22,5 +22,7 @@ func TestRunDefaultLogger(t *testing.T) {
 	obj := make(map[string]interface{}, 0)
 	obj["name"] = "Minh"
 	obj["age"] = 24
-	logger.DebugS("Debug test....", "name", "Hoang", "age", 12, "obj", obj)
+	logger.DebugS("DebugS test....", "name", "Hoang", "age", 12, "obj", obj)
+	logger.ErrorS("ErrorS test....", "name", "Hoang", "age", 12, "obj", obj)
+	logger.ErrorF("ErrorF test....", "name", "Hoang", "age", 12, "obj", obj)
 }
