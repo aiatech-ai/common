@@ -2,9 +2,9 @@ package logger
 
 import "fmt"
 
-// func init() {
-// 	Initialize(&NopLogger{})
-// }
+func init() {
+	Initialize(&NopLogger{})
+}
 
 type NopLogger struct {
 }

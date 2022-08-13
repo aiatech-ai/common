@@ -6,7 +6,7 @@ import (
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	lumberjack "gopkg.in/natefinch/lumberjack.v2"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 type ZapLogger struct {
@@ -17,6 +17,7 @@ type ZapLogger struct {
 
 func NewZapLogger() (Logger, error) {
 	zapConfig := zap.NewDevelopmentConfig()
+	zapConfig.Encoding = "json"
 	zapLogger, err := zapConfig.Build(zap.AddCallerSkip(2))
 	if err != nil {
 		return nil, err
@@ -70,7 +71,7 @@ func NewZapLoggerLevel(env Env, level Level) (Logger, error) {
 	}, nil
 }
 
-func NewZapLoggerLevelFile(env Env, level Level) (Logger, error) {
+func NewZapLoggerLevelFile(env Env, level Level, outputPath string) (Logger, error) {
 	// Create Development or Production Zap
 	var zapConfig zapcore.EncoderConfig
 	if env == DEVELOP {
@@ -101,7 +102,7 @@ func NewZapLoggerLevelFile(env Env, level Level) (Logger, error) {
 	}
 
 	// Setup write to file
-	writerSyncer := getLogWriter()
+	writerSyncer := getLogWriter(outputPath)
 	core := zapcore.NewCore(jsonEncoder, writerSyncer, lv)
 
 	// Get line and file
@@ -135,9 +136,9 @@ func (s ZapLogger) DebugF(msg string, params ...interface{}) {
 	s.zaplogger.Debug(fmt.Sprintf(msg, params...))
 }
 
-// func (s ZapLogger) DebugS(msg string, keysAndValues ...interface{}) {
-// 	s.sugaredLogger.Debugw(msg, keysAndValues...)
-// }
+func (s ZapLogger) DebugS(msg string, keysAndValues ...interface{}) {
+	s.sugaredLogger.Debugw(msg, keysAndValues...)
+}
 
 func (s ZapLogger) Error(msg string) {
 	s.zaplogger.Error(msg)
@@ -163,9 +164,12 @@ func (s ZapLogger) FatalS(msg string, keysAndValues ...interface{}) {
 	s.sugaredLogger.Fatalw(msg, keysAndValues...)
 }
 
-func getLogWriter() zapcore.WriteSyncer {
+func getLogWriter(outputPath string) zapcore.WriteSyncer {
+	if outputPath == "" {
+		outputPath = "."
+	}
 	w := zapcore.AddSync(&lumberjack.Logger{
-		Filename:   "./log/app.log",
+		Filename:   fmt.Sprintf("%s/app.log", outputPath),
 		MaxSize:    10, // megabytes
 		MaxBackups: 5,
 		MaxAge:     20, // days

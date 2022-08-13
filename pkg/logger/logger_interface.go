@@ -18,48 +18,48 @@ type Logger interface {
 	FatalS(msg string, keysAndValues ...interface{})
 }
 
-var logger Logger
+var mylog Logger
 
 func Initialize(l Logger) {
-	logger = l
+	mylog = l
 }
 
 func Info(msg string) {
-	logger.Info(msg)
+	mylog.Info(msg)
 }
 func InfoF(msg string, params ...interface{}) {
-	logger.InfoF(msg, params...)
+	mylog.InfoF(msg, params...)
 }
 func InfoS(msg string, keysAndValues ...interface{}) {
-	logger.InfoS(msg, keysAndValues...)
+	mylog.InfoS(msg, keysAndValues...)
 }
 
 func Debug(msg string) {
-	logger.Debug(msg)
+	mylog.Debug(msg)
 }
 func DebugF(msg string, params ...interface{}) {
-	logger.DebugF(msg, params...)
+	mylog.DebugF(msg, params...)
 }
 func DebugS(msg string, keysAndValues ...interface{}) {
-	logger.DebugS(msg, keysAndValues...)
+	mylog.DebugS(msg, keysAndValues...)
 }
 
 func Error(msg string) {
-	logger.Error(msg)
+	mylog.Error(msg)
 }
 func ErrorF(msg string, params ...interface{}) {
-	logger.ErrorF(msg, params...)
+	mylog.ErrorF(msg, params...)
 }
 func ErrorS(msg string, keysAndValues ...interface{}) {
-	logger.ErrorS(msg, keysAndValues...)
+	mylog.ErrorS(msg, keysAndValues...)
 }
 
 func Fatal(msg string) {
-	logger.Fatal(msg)
+	mylog.Fatal(msg)
 }
 func FatalF(msg string, params ...interface{}) {
-	logger.FatalF(msg, params...)
+	mylog.FatalF(msg, params...)
 }
 func FatalS(msg string, keysAndValues ...interface{}) {
-	logger.FatalS(msg, keysAndValues...)
+	mylog.FatalS(msg, keysAndValues...)
 }

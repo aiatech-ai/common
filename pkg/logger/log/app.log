@@ -1,0 +1,6 @@
+{"L":"INFO","T":"2022-07-23 11:47:41","C":"logger/logger_test.go:28","M":"new log with message: Minh"}
+{"L":"DEBUG","T":"2022-07-23 11:48:06","C":"logger/logger_test.go:41","M":"Toi thu"}
+{"L":"DEBUG","T":"2022-07-23 11:48:06","C":"logger/logger_interface.go:38","M":"Toi thu"}
+{"L":"INFO","T":"2022-07-23 11:48:16","C":"logger/logger_interface.go:31","M":"DebugS test: value=map[age:%!s(int=24) name:Minh]"}
+{"L":"ERROR","T":"2022-07-23 11:48:16","C":"logger/logger_interface.go:54","M":"ErrorS test....","35":"Hoang","age":12,"obj":{"age":24,"name":"Minh"}}
+{"L":"ERROR","T":"2022-07-23 11:48:18","C":"logger/logger_interface.go:51","M":"ErrorF test....%!(EXTRA string=name, string=Hoang, string=age, int=12, string=obj, map[string]interface {}=map[age:24 name:Minh])"}
